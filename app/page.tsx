@@ -321,18 +321,22 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#071126] text-white">
-      <div
-        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${FOREST_BG}')` }}
-      />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[#071126]/72" />
+    <main className="relative min-h-screen overflow-hidden text-white">
+  <div className="pointer-events-none fixed inset-0 z-[-30]">
+    <img
+      src="/forest.jpg"
+      alt=""
+      className="h-full w-full object-cover"
+    />
+  </div>
 
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#8ec5ff]/10 blur-3xl" />
-        <div className="absolute right-[-5%] top-[120px] h-[380px] w-[380px] rounded-full bg-[#c9b8ff]/10 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-white/5 blur-3xl" />
-      </div>
+  <div className="pointer-events-none fixed inset-0 z-[-20] bg-[#071126]/60" />
+
+  <div className="pointer-events-none fixed inset-0 z-[-10]">
+    <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#8ec5ff]/10 blur-3xl" />
+    <div className="absolute right-[-5%] top-[120px] h-[380px] w-[380px] rounded-full bg-[#c9b8ff]/10 blur-3xl" />
+    <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-white/5 blur-3xl" />
+  </div>
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071126]/65 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
