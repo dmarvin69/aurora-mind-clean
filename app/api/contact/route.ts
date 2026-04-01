@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 type ContactPayload = {
   name: string;
   email: string;
@@ -16,6 +14,27 @@ function isValidEmail(email: string) {
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_TO_EMAIL;
+    const fromEmail =
+      process.env.CONTACT_FROM_EMAIL || 'Aurora Mind <onboarding@resend.dev>';
+
+    if (!apiKey) {
+      return Response.json(
+        { ok: false, error: 'Не задан RESEND_API_KEY.' },
+        { status: 500 }
+      );
+    }
+
+    if (!toEmail) {
+      return Response.json(
+        { ok: false, error: 'Не задан CONTACT_TO_EMAIL.' },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+
     const body = (await request.json()) as Partial<ContactPayload>;
 
     const name = (body.name || '').trim();
@@ -39,24 +58,6 @@ export async function POST(request: Request) {
       return Response.json(
         { ok: false, error: 'Некорректный email.' },
         { status: 400 }
-      );
-    }
-
-    const toEmail = process.env.CONTACT_TO_EMAIL;
-    const fromEmail =
-      process.env.CONTACT_FROM_EMAIL || 'Aurora Mind <onboarding@resend.dev>';
-
-    if (!process.env.RESEND_API_KEY) {
-      return Response.json(
-        { ok: false, error: 'Не задан RESEND_API_KEY.' },
-        { status: 500 }
-      );
-    }
-
-    if (!toEmail) {
-      return Response.json(
-        { ok: false, error: 'Не задан CONTACT_TO_EMAIL.' },
-        { status: 500 }
       );
     }
 
@@ -86,7 +87,7 @@ Email: ${email}
 ${message}
     `;
 
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
       subject,
@@ -99,16 +100,12 @@ ${message}
       console.error('Resend error:', error);
 
       return Response.json(
-        {
-          ok: false,
-          error: 'Не удалось отправить письмо. Проверь RESEND_API_KEY, CONTACT_TO_EMAIL и CONTACT_FROM_EMAIL.',
-          details: error,
-        },
+        { ok: false, error: 'Не удалось отправить письмо.' },
         { status: 500 }
       );
     }
 
-    return Response.json({ ok: true, data });
+    return Response.json({ ok: true });
   } catch (error) {
     console.error('Contact route error:', error);
 
