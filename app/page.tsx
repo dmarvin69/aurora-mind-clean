@@ -21,8 +21,6 @@ const initialForm: FormState = {
   company: '',
 };
 
-const FOREST_BG = '/forest.jpg';
-
 export default function Home() {
   const [lang, setLang] = useState<Lang>('ru');
   const [form, setForm] = useState<FormState>(initialForm);
@@ -322,23 +320,19 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-  <div className="pointer-events-none fixed inset-0 z-[-30]">
-    <img
-      src="/forest.jpg"
-      alt=""
-      className="h-full w-full object-cover"
-    />
-  </div>
+      <div className="pointer-events-none fixed inset-0 z-[-30]">
+        <img src="/forest.jpg" alt="" className="h-full w-full object-cover" />
+      </div>
 
-  <div className="pointer-events-none fixed inset-0 z-[-20] bg-[#071126]/60" />
+      <div className="pointer-events-none fixed inset-0 z-[-20] bg-[#071126]/35" />
 
-  <div className="pointer-events-none fixed inset-0 z-[-10]">
-    <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#8ec5ff]/10 blur-3xl" />
-    <div className="absolute right-[-5%] top-[120px] h-[380px] w-[380px] rounded-full bg-[#c9b8ff]/10 blur-3xl" />
-    <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-white/5 blur-3xl" />
-  </div>
+      <div className="pointer-events-none fixed inset-0 z-[-10]">
+        <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#8ec5ff]/10 blur-3xl" />
+        <div className="absolute right-[-5%] top-[120px] h-[380px] w-[380px] rounded-full bg-[#c9b8ff]/10 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-white/5 blur-3xl" />
+      </div>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071126]/65 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071126]/45 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <div className="text-2xl font-semibold tracking-tight">{content.brand}</div>
 
@@ -357,7 +351,7 @@ export default function Home() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-md">
             <button
               type="button"
               onClick={() => setLang('ru')}
@@ -392,34 +386,34 @@ export default function Home() {
 
           <h1 className="text-5xl font-bold leading-[1.05] md:text-7xl">
             {content.heroTitle1}
-            <span className="mt-2 block bg-gradient-to-r from-[#d7ccff] to-[#97cbff] bg-clip-text text-transparent">
+            <span className="mt-2 block bg-gradient-to-r from-[#e6ddff] to-[#b8d7ff] bg-clip-text text-transparent">
               {content.heroTitle2}
             </span>
           </h1>
 
-          <p className="mt-8 max-w-xl text-lg leading-8 text-white/68">
+          <p className="mt-8 max-w-xl text-lg leading-8 text-white/75">
             {content.heroText}
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
             <a
               href="#contact"
-              className="rounded-full bg-white px-6 py-3 font-semibold text-[#071126] transition hover:-translate-y-0.5 hover:opacity-95"
+              className="rounded-full bg-white/90 px-6 py-3 font-semibold text-[#071126] shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-white"
             >
               {content.heroBtnPrimary}
             </a>
 
             <a
               href="#services"
-              className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-medium text-white transition hover:bg-white/10"
+              className="rounded-full border border-white/15 bg-white/8 px-6 py-3 font-medium text-white backdrop-blur-md transition hover:bg-white/12"
             >
               {content.heroBtnSecondary}
             </a>
           </div>
         </div>
 
-        <div className="rounded-[32px] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/20 backdrop-blur-2xl md:p-8">
-          <div className="rounded-[28px] border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
+        <div className="rounded-[32px] border border-white/12 bg-white/8 p-6 shadow-2xl shadow-black/20 backdrop-blur-2xl md:p-8">
+          <div className="rounded-[28px] border border-white/12 bg-gradient-to-br from-white/14 to-white/6 p-8">
             <p className="text-sm uppercase tracking-[0.28em] text-white/45">
               {content.sideTag}
             </p>
@@ -428,15 +422,15 @@ export default function Home() {
               {content.sideTitle}
             </h2>
 
-            <p className="mt-5 leading-8 text-white/68">{content.sideText}</p>
+            <p className="mt-5 leading-8 text-white/72">{content.sideText}</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="rounded-2xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                 <div className="text-2xl font-bold">{content.sideCard1Title}</div>
                 <div className="mt-2 text-sm text-white/55">{content.sideCard1Text}</div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="rounded-2xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                 <div className="text-2xl font-bold">{content.sideCard2Title}</div>
                 <div className="mt-2 text-sm text-white/55">{content.sideCard2Text}</div>
               </div>
@@ -448,7 +442,7 @@ export default function Home() {
       <section id="services" className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <div className="mb-10 max-w-2xl">
           <h2 className="text-3xl font-bold md:text-4xl">{content.servicesTitle}</h2>
-          <p className="mt-4 leading-8 text-white/62">{content.servicesText}</p>
+          <p className="mt-4 leading-8 text-white/70">{content.servicesText}</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -456,10 +450,10 @@ export default function Home() {
             <Link
               key={item.title}
               href={item.href}
-              className="group rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/8"
+              className="group rounded-[28px] border border-white/12 bg-white/8 p-7 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/12"
             >
               <h3 className="text-2xl font-semibold">{item.title}</h3>
-              <p className="mt-4 leading-8 text-white/62">{item.text}</p>
+              <p className="mt-4 leading-8 text-white/68">{item.text}</p>
               <div className="mt-6 text-sm font-medium text-[#d7ccff] transition group-hover:text-white">
                 {item.more} →
               </div>
@@ -479,21 +473,21 @@ export default function Home() {
               key={card.tag}
               className={
                 card.featured
-                  ? 'rounded-[28px] border border-[#c9b8ff]/35 bg-gradient-to-b from-[#c9b8ff]/18 to-white/5 p-7 shadow-xl shadow-[#c9b8ff]/5'
-                  : 'rounded-[28px] border border-white/10 bg-white/5 p-7'
+                  ? 'rounded-[28px] border border-[#d2c5ff]/35 bg-gradient-to-b from-[#d2c5ff]/16 to-white/8 p-7 shadow-xl shadow-[#c9b8ff]/10 backdrop-blur-xl'
+                  : 'rounded-[28px] border border-white/12 bg-white/8 p-7 backdrop-blur-xl'
               }
             >
               <div
                 className={
                   card.featured
-                    ? 'text-sm uppercase tracking-[0.25em] text-[#ddd3ff]'
+                    ? 'text-sm uppercase tracking-[0.25em] text-[#ebe4ff]'
                     : 'text-sm uppercase tracking-[0.25em] text-white/45'
                 }
               >
                 {card.tag}
               </div>
               <div className="mt-4 text-3xl font-bold">{card.price}</div>
-              <p className={card.featured ? 'mt-3 text-white/70' : 'mt-3 text-white/60'}>
+              <p className={card.featured ? 'mt-3 text-white/72' : 'mt-3 text-white/62'}>
                 {card.text}
               </p>
             </div>
@@ -510,7 +504,7 @@ export default function Home() {
           {content.reviews.map((review, index) => (
             <div
               key={index}
-              className="group rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/8"
+              className="group rounded-[28px] border border-white/12 bg-white/8 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/12"
             >
               <div className="flex items-center gap-4">
                 <img
@@ -524,14 +518,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <p className="mt-5 leading-7 text-white/72">“{review.text}”</p>
+              <p className="mt-5 leading-7 text-white/74">“{review.text}”</p>
             </div>
           ))}
         </div>
       </section>
 
       <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/6 backdrop-blur-2xl">
+        <div className="overflow-hidden rounded-[36px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.04))] shadow-2xl shadow-black/20 backdrop-blur-2xl">
           <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="p-8 md:p-12 lg:p-16">
               <p className="text-sm uppercase tracking-[0.35em] text-white/45">
@@ -542,50 +536,50 @@ export default function Home() {
                 {content.contactTitle}
               </h2>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/65">
+              <p className="mt-6 max-w-xl text-lg leading-8 text-white/72">
                 {content.contactText}
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
                   href="#reviews"
-                  className="rounded-full border border-white/15 bg-white/5 px-7 py-4 font-medium text-white transition hover:bg-white/10"
+                  className="rounded-full border border-white/15 bg-white/8 px-7 py-4 font-medium text-white backdrop-blur-md transition hover:bg-white/12"
                 >
                   {content.contactBtnSecondary}
                 </a>
               </div>
 
               <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                   <div className="text-sm text-white/45">{content.mini1Label}</div>
                   <div className="mt-2 text-lg font-semibold">{content.mini1Value}</div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                   <div className="text-sm text-white/45">{content.mini2Label}</div>
                   <div className="mt-2 text-lg font-semibold">{content.mini2Value}</div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                   <div className="text-sm text-white/45">{content.mini3Label}</div>
                   <div className="mt-2 text-lg font-semibold">{content.mini3Value}</div>
                 </div>
               </div>
             </div>
 
-            <div className="relative min-h-[360px] border-t border-white/10 bg-gradient-to-br from-[#c9b8ff]/12 via-transparent to-[#8ec5ff]/10 lg:min-h-full lg:border-l lg:border-t-0">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_30%)]" />
+            <div className="relative min-h-[360px] border-t border-white/10 bg-gradient-to-br from-[#d7d0ff]/10 via-transparent to-[#9ec8ff]/10 lg:min-h-full lg:border-l lg:border-t-0">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.10),transparent_30%)]" />
 
               <div className="relative flex h-full items-center justify-center p-8 md:p-12">
-                <div className="w-full max-w-md rounded-[28px] border border-white/10 bg-[#0d111a]/90 p-5 shadow-2xl shadow-black/30">
+                <div className="w-full max-w-md rounded-[32px] border border-white/15 bg-[#0c1320]/65 p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl">
                   <div className="mb-4 flex items-center gap-2">
                     <span className="h-3 w-3 rounded-full bg-red-400/70" />
                     <span className="h-3 w-3 rounded-full bg-yellow-400/70" />
                     <span className="h-3 w-3 rounded-full bg-green-400/70" />
                   </div>
 
-                  <div className="rounded-[22px] border border-white/10 bg-[#090d14] p-5">
-                    <h3 className="mb-5 text-xl font-semibold text-white/95">
+                  <div className="rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(7,17,38,0.72),rgba(10,18,30,0.82))] p-6 backdrop-blur-xl">
+                    <h3 className="mb-6 text-2xl font-semibold tracking-tight text-white/95">
                       {content.formTitle}
                     </h3>
 
@@ -601,7 +595,7 @@ export default function Home() {
                       />
 
                       <div>
-                        <label className="mb-2 block text-sm text-white/45">
+                        <label className="mb-2 block text-sm text-white/50">
                           {content.formName}
                         </label>
                         <input
@@ -611,12 +605,12 @@ export default function Home() {
                           onChange={handleChange}
                           placeholder={content.formNamePlaceholder}
                           required
-                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                          className="h-12 w-full rounded-2xl border border-white/12 bg-white/6 px-4 text-white outline-none transition placeholder:text-white/35 focus:border-[#cfd8ff]/45 focus:bg-white/10"
                         />
                       </div>
 
                       <div>
-                        <label className="mb-2 block text-sm text-white/45">
+                        <label className="mb-2 block text-sm text-white/50">
                           {content.formEmail}
                         </label>
                         <input
@@ -626,12 +620,12 @@ export default function Home() {
                           onChange={handleChange}
                           placeholder={content.formEmailPlaceholder}
                           required
-                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                          className="h-12 w-full rounded-2xl border border-white/12 bg-white/6 px-4 text-white outline-none transition placeholder:text-white/35 focus:border-[#cfd8ff]/45 focus:bg-white/10"
                         />
                       </div>
 
                       <div>
-                        <label className="mb-2 block text-sm text-white/45">
+                        <label className="mb-2 block text-sm text-white/50">
                           {content.formTopic}
                         </label>
                         <input
@@ -640,12 +634,12 @@ export default function Home() {
                           value={form.topic}
                           onChange={handleChange}
                           placeholder={content.formTopicPlaceholder}
-                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                          className="h-12 w-full rounded-2xl border border-white/12 bg-white/6 px-4 text-white outline-none transition placeholder:text-white/35 focus:border-[#cfd8ff]/45 focus:bg-white/10"
                         />
                       </div>
 
                       <div>
-                        <label className="mb-2 block text-sm text-white/45">
+                        <label className="mb-2 block text-sm text-white/50">
                           {content.formMessage}
                         </label>
                         <textarea
@@ -655,14 +649,14 @@ export default function Home() {
                           placeholder={content.formMessagePlaceholder}
                           required
                           rows={5}
-                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                          className="w-full rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-[#cfd8ff]/45 focus:bg-white/10"
                         />
                       </div>
 
                       <button
                         type="submit"
                         disabled={isSending}
-                        className="inline-flex rounded-xl bg-[#7ea2ff] px-5 py-3 font-medium text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex rounded-2xl bg-gradient-to-r from-[#9fb8ff] to-[#7f9cff] px-6 py-3 font-medium text-white shadow-lg shadow-[#7f9cff]/20 transition hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {isSending ? content.formSending : content.formBtn}
                       </button>
@@ -681,7 +675,7 @@ export default function Home() {
                     </form>
                   </div>
 
-                  <p className="mt-4 text-sm leading-6 text-white/45">
+                  <p className="mt-4 text-sm leading-6 text-white/50">
                     {content.formNote}
                   </p>
                 </div>
