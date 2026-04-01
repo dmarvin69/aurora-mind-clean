@@ -1,11 +1,34 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 type Lang = 'ru' | 'en';
 
+type FormState = {
+  name: string;
+  email: string;
+  topic: string;
+  message: string;
+  company: string;
+};
+
+const initialForm: FormState = {
+  name: '',
+  email: '',
+  topic: '',
+  message: '',
+  company: '',
+};
+
+const FOREST_BG = '/forest.jpg';
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>('ru');
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [isSending, setIsSending] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const content = useMemo(() => {
     const ru = {
@@ -39,14 +62,20 @@ export default function Home() {
         {
           title: 'Тревога и эмоциональное выгорание',
           text: 'Помогаю снизить внутреннее напряжение, вернуть чувство опоры и восстановить контакт с собой.',
+          href: '/services/anxiety-burnout',
+          more: 'Подробнее',
         },
         {
           title: 'Самооценка и личные границы',
           text: 'Работаем с чувством вины, страхом отстаивать себя и поиском более устойчивой внутренней позиции.',
+          href: '/services/self-esteem-boundaries',
+          more: 'Подробнее',
         },
         {
-          title: 'Кризисы и жизненные перемены',
+          title: 'Кризисные ситуации',
           text: 'Поддержка в периоды расставаний, переездов, потерь, смены работы и сложных решений.',
+          href: '/services/crisis',
+          more: 'Подробнее',
         },
       ],
 
@@ -95,8 +124,7 @@ export default function Home() {
       contactTag: 'Контакты',
       contactTitle: 'Оставить заявку',
       contactText:
-        'Если тебе откликается такой формат, можно оставить заявку через форму. Я внимательно читаю обращения и отвечаю в течение суток.',
-      contactBtnPrimary: 'Открыть форму',
+        'Если тебе откликается такой формат, можно оставить заявку прямо на сайте. Я внимательно читаю обращения и отвечаю в течение суток.',
       contactBtnSecondary: 'Посмотреть отзывы',
 
       mini1Label: 'Формат',
@@ -106,12 +134,23 @@ export default function Home() {
       mini3Label: 'Первая встреча',
       mini3Value: 'знакомство и запрос',
 
-      mockName: 'Имя',
-      mockEmail: 'Email',
-      mockMessage: 'Сообщение',
-      mockBtn: 'Перейти к заявке',
-      mockText:
-        'Заявка открывается в отдельном окне формы, чтобы сохранить чистоту дизайна и спокойную атмосферу страницы.',
+      formTitle: 'Форма заявки',
+      formName: 'Имя',
+      formEmail: 'Email',
+      formTopic: 'Тема обращения',
+      formMessage: 'Сообщение',
+      formNamePlaceholder: 'Как к тебе обращаться?',
+      formEmailPlaceholder: 'example@mail.com',
+      formTopicPlaceholder: 'Например: тревога, самооценка, кризис',
+      formMessagePlaceholder: 'Расскажи коротко, с чем ты хочешь прийти в работу',
+      formBtn: 'Отправить заявку',
+      formSending: 'Отправка...',
+      formSuccess:
+        'Спасибо. Твоя заявка отправлена. Я свяжусь с тобой в ближайшее время.',
+      formErrorDefault:
+        'Не удалось отправить заявку. Попробуй ещё раз чуть позже.',
+      formNote:
+        'Нажимая кнопку, ты отправляешь заявку на почту для обратной связи.',
     };
 
     const en = {
@@ -145,14 +184,20 @@ export default function Home() {
         {
           title: 'Anxiety and Emotional Burnout',
           text: 'I help reduce inner tension, restore a sense of stability, and rebuild connection with yourself.',
+          href: '/services/anxiety-burnout',
+          more: 'Learn more',
         },
         {
           title: 'Self-Esteem and Personal Boundaries',
           text: 'We work with guilt, fear of standing up for yourself, and finding a steadier inner position.',
+          href: '/services/self-esteem-boundaries',
+          more: 'Learn more',
         },
         {
-          title: 'Crises and Life Transitions',
+          title: 'Crisis Situations',
           text: 'Support through breakups, relocation, loss, job changes, and difficult decisions.',
+          href: '/services/crisis',
+          more: 'Learn more',
         },
       ],
 
@@ -201,8 +246,7 @@ export default function Home() {
       contactTag: 'Contact',
       contactTitle: 'Leave a Request',
       contactText:
-        'If this format feels right for you, you can leave a request through the form. I read every message carefully and reply within 24 hours.',
-      contactBtnPrimary: 'Open Form',
+        'If this format feels right for you, you can leave a request directly on the website. I read every message carefully and reply within 24 hours.',
       contactBtnSecondary: 'View Reviews',
 
       mini1Label: 'Format',
@@ -212,26 +256,85 @@ export default function Home() {
       mini3Label: 'First Session',
       mini3Value: 'intro and request',
 
-      mockName: 'Name',
-      mockEmail: 'Email',
-      mockMessage: 'Message',
-      mockBtn: 'Go to Form',
-      mockText:
-        'The form opens in a separate window to preserve the clean design and calm atmosphere of the page.',
+      formTitle: 'Contact Form',
+      formName: 'Name',
+      formEmail: 'Email',
+      formTopic: 'Topic',
+      formMessage: 'Message',
+      formNamePlaceholder: 'What should I call you?',
+      formEmailPlaceholder: 'example@mail.com',
+      formTopicPlaceholder: 'For example: anxiety, self-esteem, crisis',
+      formMessagePlaceholder: 'Briefly share what you would like support with',
+      formBtn: 'Send Request',
+      formSending: 'Sending...',
+      formSuccess:
+        'Thank you. Your request has been sent. I will contact you soon.',
+      formErrorDefault:
+        'Could not send your request. Please try again a bit later.',
+      formNote:
+        'By clicking the button, you send your request by email for follow-up.',
     };
 
     return lang === 'ru' ? ru : en;
   }, [lang]);
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setSuccessMessage('');
+    setErrorMessage('');
+    setIsSending(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || content.formErrorDefault);
+      }
+
+      setSuccessMessage(content.formSuccess);
+      setForm(initialForm);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : content.formErrorDefault;
+      setErrorMessage(message);
+    } finally {
+      setIsSending(false);
+    }
+  }
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
   return (
-    <main className="min-h-screen bg-[#071126] text-white">
+    <main className="relative min-h-screen overflow-hidden bg-[#071126] text-white">
+      <div
+        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url('${FOREST_BG}')` }}
+      />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[#071126]/72" />
+
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#8ec5ff]/10 blur-3xl" />
         <div className="absolute right-[-5%] top-[120px] h-[380px] w-[380px] rounded-full bg-[#c9b8ff]/10 blur-3xl" />
         <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-white/5 blur-3xl" />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071126]/75 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071126]/65 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <div className="text-2xl font-semibold tracking-tight">{content.brand}</div>
 
@@ -346,13 +449,17 @@ export default function Home() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {content.services.map((item) => (
-            <div
+            <Link
               key={item.title}
-              className="rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/8"
+              href={item.href}
+              className="group rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/8"
             >
               <h3 className="text-2xl font-semibold">{item.title}</h3>
               <p className="mt-4 leading-8 text-white/62">{item.text}</p>
-            </div>
+              <div className="mt-6 text-sm font-medium text-[#d7ccff] transition group-hover:text-white">
+                {item.more} →
+              </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -437,15 +544,6 @@ export default function Home() {
 
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
-                  href="https://forms.yandex.ru/u/69cc417c49af47001f74b105"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-white px-7 py-4 font-semibold text-[#071126] transition hover:-translate-y-0.5 hover:opacity-95"
-                >
-                  {content.contactBtnPrimary}
-                </a>
-
-                <a
                   href="#reviews"
                   className="rounded-full border border-white/15 bg-white/5 px-7 py-4 font-medium text-white transition hover:bg-white/10"
                 >
@@ -483,35 +581,104 @@ export default function Home() {
                   </div>
 
                   <div className="rounded-[22px] border border-white/10 bg-[#090d14] p-5">
-                    <div className="space-y-4">
+                    <h3 className="mb-5 text-xl font-semibold text-white/95">
+                      {content.formTitle}
+                    </h3>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <input
+                        type="text"
+                        name="company"
+                        value={form.company}
+                        onChange={handleChange}
+                        autoComplete="off"
+                        tabIndex={-1}
+                        className="hidden"
+                      />
+
                       <div>
-                        <div className="mb-2 text-sm text-white/45">{content.mockName}</div>
-                        <div className="h-12 rounded-xl border border-white/10 bg-white/5" />
+                        <label className="mb-2 block text-sm text-white/45">
+                          {content.formName}
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={form.name}
+                          onChange={handleChange}
+                          placeholder={content.formNamePlaceholder}
+                          required
+                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                        />
                       </div>
 
                       <div>
-                        <div className="mb-2 text-sm text-white/45">{content.mockEmail}</div>
-                        <div className="h-12 rounded-xl border border-white/10 bg-white/5" />
+                        <label className="mb-2 block text-sm text-white/45">
+                          {content.formEmail}
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={form.email}
+                          onChange={handleChange}
+                          placeholder={content.formEmailPlaceholder}
+                          required
+                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                        />
                       </div>
 
                       <div>
-                        <div className="mb-2 text-sm text-white/45">{content.mockMessage}</div>
-                        <div className="h-28 rounded-xl border border-white/10 bg-white/5" />
+                        <label className="mb-2 block text-sm text-white/45">
+                          {content.formTopic}
+                        </label>
+                        <input
+                          type="text"
+                          name="topic"
+                          value={form.topic}
+                          onChange={handleChange}
+                          placeholder={content.formTopicPlaceholder}
+                          className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                        />
                       </div>
 
-                      <a
-                        href="https://forms.yandex.ru/u/69cc417c49af47001f74b105"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex rounded-xl bg-[#7ea2ff] px-5 py-3 font-medium text-white transition hover:opacity-90"
+                      <div>
+                        <label className="mb-2 block text-sm text-white/45">
+                          {content.formMessage}
+                        </label>
+                        <textarea
+                          name="message"
+                          value={form.message}
+                          onChange={handleChange}
+                          placeholder={content.formMessagePlaceholder}
+                          required
+                          rows={5}
+                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSending}
+                        className="inline-flex rounded-xl bg-[#7ea2ff] px-5 py-3 font-medium text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                       >
-                        {content.mockBtn}
-                      </a>
-                    </div>
+                        {isSending ? content.formSending : content.formBtn}
+                      </button>
+
+                      {successMessage ? (
+                        <p className="text-sm leading-6 text-emerald-300">
+                          {successMessage}
+                        </p>
+                      ) : null}
+
+                      {errorMessage ? (
+                        <p className="text-sm leading-6 text-rose-300">
+                          {errorMessage}
+                        </p>
+                      ) : null}
+                    </form>
                   </div>
 
                   <p className="mt-4 text-sm leading-6 text-white/45">
-                    {content.mockText}
+                    {content.formNote}
                   </p>
                 </div>
               </div>
