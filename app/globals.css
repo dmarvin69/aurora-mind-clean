@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* плавность */
+* {
+  transition: all 0.25s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* glow фон */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(159,184,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(201,184,255,0.08), transparent 40%);
+  z-index: -5;
+}
+
+/* анимация */
+.page {
+  animation: fade 0.6s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(15px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* glass */
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+}
+
+/* карточки */
+.card {
+  transition: 0.35s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* кнопка */
+.btn {
+  background: linear-gradient(135deg, #9fb8ff, #7f9cff);
+  padding: 12px 24px;
+  border-radius: 999px;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* текст */
+.text-soft {
+  color: rgba(255,255,255,0.7);
 }
